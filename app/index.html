@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <title>Angular Material - Starter App</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <!-- <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'> -->
+    <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="assets/app.css"/>
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+
+  </head>
+
+  <body ng-app="starterApp" layout="column" ng-controller="UserController" ng-cloak>
+
+    <md-button class="md-fab site-action" aria-label="Add Bills">
+        <md-icon md-svg-icon="share"></md-icon>
+    </md-button>
+
+    <md-toolbar layout="row">
+      <md-button class="menu" hide-gt-sm ng-click="toggleList()" aria-label="Show User List">
+        <md-icon md-svg-icon="menu" ></md-icon>
+      </md-button>
+      <h1>PassBrook : Your Portal</h1>
+    </md-toolbar>
+
+    <div flex layout="row">
+
+        <md-sidenav  ng-click="toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
+          <md-list>
+            <md-list-item >
+                <md-button ng-click="selectSection('overview')" ng-class="{'selected' : 'overview' === selected }">
+                  Overview
+                </md-button>
+            </md-list-item>
+            <md-list-item >
+                <md-button ng-click="selectSection('bills')" ng-class="{'selected' : 'bills' === selected }">
+                  Bills
+                </md-button>
+            </md-list-item>
+            <md-list-item >
+                <md-button ng-click="selectSection('invoice')" ng-class="{'selected' : 'invoice' === selected }">
+                  Invoice
+                </md-button>
+            </md-list-item>
+            <md-list-item >
+                <md-button ng-click="selectSection('settings')" ng-class="{'selected' : 'settings' === selected }">
+                  Settings
+                </md-button>
+            </md-list-item>
+            <md-list-item >
+                <md-button ng-click="" >
+                  Logout
+                </md-button>
+            </md-list-item>
+          </md-list>
+        </md-sidenav>
+
+        <md-content flex>
+            <section class="section-content" ng-show="selected == 'overview'">
+                <section layout="row" layout-align="space-around">
+                <section class="data-card" flex="45" ng-click="gotoAllBills()">
+                    <h4>Total Bills</h4>
+                    <h2>37</h2>
+                </section>
+                <section class="data-card" flex="45" ng-click="gotoPendingBills()">
+                    <h4>Pending Bills</h4>
+                    <h2>12</h2>
+                </section>
+                </section>
+
+            </section>
+            <section ng-show="selected == 'bills'">
+                <md-nav-bar
+                      md-selected-nav-item="selectedBillsTab">
+                      <md-nav-item md-nav-click="goto('page1')" name="page1">
+                        All
+                      </md-nav-item>
+                      <md-nav-item md-nav-click="goto('page2')" name="page2">
+                        Pending
+                      </md-nav-item>
+                      <md-nav-item md-nav-click="goto('page3')" name="page3">
+                        Paid
+                      </md-nav-item>
+                      <div flex></div>
+                      <h4>Rs 500</h4>
+                </md-nav-bar>
+                <md-content class="md-padding">
+                    <md-list flex>
+                        <md-list-item class="md-3-line" ng-click="null">
+                            <img ng-src="" class="md-avatar" alt="" />
+                            <div class="md-list-item-text" layout="column">
+                              <h3>Ashish Nigam</h3>
+                              <h4>Rs 500</h4>
+                              <p>Table and Rent</p>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line" ng-click="null">
+                            <img ng-src="" class="md-avatar" alt="" />
+                            <div class="md-list-item-text" layout="column">
+                              <h3>Ashish Nigam</h3>
+                              <h4>Rs 500</h4>
+                              <p>Table and Rent</p>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line" ng-click="null">
+                            <img ng-src="" class="md-avatar" alt="" />
+                            <div class="md-list-item-text" layout="column">
+                              <h3>Ashish Nigam</h3>
+                              <h4>Rs 500</h4>
+                              <p>Table and Rent</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+                    
+            </section>
+            <section ng-show="selected == 'invoice'">
+                <h1>Invoice</h1>
+            </section>
+            <section ng-show="selected == 'settings'">
+                <h1>Settings</h1>
+            </section>
+        </md-content>
+
+    </div>
+
+    <script src="../node_modules/angular/angular.js"></script>
+    <script src="../node_modules/angular-animate/angular-animate.js"></script>
+    <script src="../node_modules/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <script src="./src/users/Users.js"></script>
+    <script src="./src/users/UserController.js"></script>
+    <script src="./src/users/UserService.js"></script>
+
+    <script type="text/javascript">
+          angular
+              .module('starterApp', ['ngMaterial', 'ui.router', 'users'])
+              .config(function($mdThemingProvider, $mdIconProvider){
+
+                  $mdIconProvider
+                      .defaultIconSet("./assets/svg/avatars.svg", 128)
+                      .icon("menu"       , "./assets/svg/menu.svg"        , 24)
+                      .icon("share"      , "./assets/svg/share.svg"       , 24)
+                      .icon("google_plus", "./assets/svg/google_plus.svg" , 512)
+                      .icon("hangouts"   , "./assets/svg/hangouts.svg"    , 512)
+                      .icon("twitter"    , "./assets/svg/twitter.svg"     , 512)
+                      .icon("phone"      , "./assets/svg/phone.svg"       , 512);
+
+                      $mdThemingProvider.theme('default')
+                          .primaryPalette('brown')
+                          .accentPalette('red');
+
+              });
+
+    </script>
+
+  </body>
+</html>
